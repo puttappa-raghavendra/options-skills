@@ -1,0 +1,5 @@
+# Personal trading state stays local, never in the repo
+**/qqq-ic-ledger.json
+**/*-ledger.json
+**/tickets/
+.DS_Store
