@@ -22,6 +22,32 @@ Everything runs through the IBKR connector (`mcp__Interactive_Brokers_IBKR__*`; 
 tools with ToolSearch). No scripts are needed: the arithmetic is a few lines per trade,
 shown in "Sizing math" below. Show the math on every ticket so the user can check it.
 
+## First: check the IBKR connector
+
+Before anything else, every chat and every scheduled run, confirm the connector is
+there and answering:
+1. Look for `mcp__Interactive_Brokers_IBKR__*` tools, loading them with ToolSearch
+   (query `Interactive Brokers IBKR`). If none turn up, the connector isn't added.
+2. Call `get_account_summary`. It must return an account with a net liquidation value.
+   An auth, session or "not connected" error means the connector is added but not
+   signed in.
+
+If either check fails, stop. Don't plan, size or manage anything from memory, the
+ledger or web prices: every number in this system has to come from the live account.
+Tell the user in one or two lines which case it is and how to fix it:
+- **Not added:** add the Interactive Brokers connector in Claude (Settings >
+  Connectors), then ask again. Where a connector-suggestion tool is available, offer
+  the IBKR connector through it.
+- **Added but not answering:** reconnect or re-authenticate the Interactive Brokers
+  connector in Settings > Connectors.
+
+In a scheduled run, report it as urgent if any layer is open, since stops and exits
+are not being checked until the connector is back. With no open layers, one line
+saying today's run was skipped is enough.
+
+Questions that need no account data (explaining a rule, editing the config) can still
+be answered without the connector; say that live checks are unavailable.
+
 ## Files
 
 Keep these together. If `/mnt/project-files/skills/qqq-iron-condor-ladder/` exists, use
@@ -327,7 +353,7 @@ automatically (`CRON_TZ=America/New_York`):
 - **15:15 ET, Monday-Friday:** management pass only, so a stop or 21-DTE exit is caught
   before the close. Report only when something needs the user.
 
-Each run first checks the market is open today (a QQQ snapshot whose last trade is
+Each run first runs the connector check above, then checks the market is open today (a QQQ snapshot whose last trade is
 from today) and stops quietly if it isn't. On a 1:00 pm early-close day the 15:15 run
 finds the market closed, so the 9:50 run is the last check: say so in its report.
 

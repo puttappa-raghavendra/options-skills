@@ -54,8 +54,10 @@ To change a single rule for every profile, put it under `"overrides"`, for examp
 
 ## How to use it
 
-1. Install the skill (copy this folder into your Claude skills directory) and connect
-   the Interactive Brokers connector in Claude.
+1. Install the skill (copy this folder into your Claude skills directory) and add the
+   Interactive Brokers connector in Claude (Settings > Connectors). The connector is
+   required: every run first checks that it is added and signed in, and stops with a
+   clear message if it isn't, rather than trading on stale or guessed numbers.
 2. Ask Claude things like:
    - "Plan this Friday's QQQ condor layer."
    - "Check my open QQQ condors."
