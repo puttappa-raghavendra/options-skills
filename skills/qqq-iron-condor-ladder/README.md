@@ -39,6 +39,41 @@ before you approve it.
 | Short leg reaches 0.25 delta | Watch |
 | Short leg reaches 0.30 delta | Defend once: roll the untested side closer |
 
+## Risk to reward and win rate
+
+Iron condors win often and lose big. That's the trade-off, so know these numbers
+before you start. Per contract, using the worked example ($10 wings, $2.27 credit,
+moderate profile):
+
+| Measure | Value |
+|---|---|
+| Max reward at entry | $227 (full credit) |
+| Max risk at entry | $773 (wing width minus credit) |
+| **Risk : reward at entry** | **about 3.4 : 1** |
+| Typical win (50% profit target, after fees) | about $108 |
+| Typical loss (stop at 2x credit, plus fees) | about $459 |
+| **Risk : reward as managed** | **about 4.2 : 1** |
+| Win rate needed to break even | about 81% (a bit lower counting small 21-DTE exits) |
+| **Expected win rate** | **about 75-85%** |
+
+Expected outcomes per layer: roughly 65-75% close at the 50% target within one to two
+weeks, 10-20% close at 21 DTE for a small gain or loss, and 10-15% hit the stop.
+
+What that means:
+- The edge is thin, roughly +$5 to +$25 per contract per layer before slippage. It
+  comes from options usually pricing in more movement than QQQ delivers.
+- **Every stop must be taken.** One loss held to the full $773 wipes out about seven
+  winners. The stop, the 21-DTE exit and the drawdown pause exist to keep losses at
+  about 2x credit.
+- A weekend gap or crash can skip past the stop and cost the full layer, which is why
+  each layer is capped at a share of the account.
+- On the trend side's $20 wing the entry ratio is worse (about 7:1), but the managed
+  ratio is the same because the stop is set from the credit.
+
+These are estimates based on published research into similarly managed ~16-delta
+condors (50% target, 21-DTE exit), not a backtest of these exact rules. Every trade
+ticket the skill writes shows its own risk/reward and breakeven win rate.
+
 ## Risk profiles
 
 Set `risk_profile` in [`qqq-ic-config.json`](qqq-ic-config.json). The default is `moderate`.

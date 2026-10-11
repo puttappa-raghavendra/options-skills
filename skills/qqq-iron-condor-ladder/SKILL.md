@@ -397,6 +397,8 @@ Trend: <up/down/neutral> (<5-day %>, <n>/5 days) -> <tilt applied or none>
 Credit: $<mid> mid (natural $<nat>) x <n> = $<total credit>
 Max loss: $<total> (<pct>% of capital); open risk after entry $<x> of $<cap>
 Breakevens: <low> / <high>     Est. fees: $<fees>
+Risk/reward: at entry <max loss>:<credit> (<r>:1); managed (stop vs target) <stop loss>:<target gain> (~<r>:1)
+       breakeven win rate <pct>% vs expected ~75-85% for this setup
 Exits: take profit at $<tp> debit | stop at $<sl> debit | close by <date> (21 DTE)
        watch at 0.25 delta, defend at 0.30
 Math: <the sizing lines with real numbers>
@@ -471,6 +473,21 @@ note those dates on the ticket.
 **Assignment.** QQQ options are American-style. Early assignment risk peaks on an
 in-the-money short call the day before QQQ's quarterly ex-dividend date (March, June,
 September, December). If a short call is in the money then, close the layer that day.
+
+**Risk to reward and win rate.** Per contract in the worked example ($2.27 credit,
+$10 wing): at entry the trade risks $773 to make $227, about 3.4:1. Managed, a win is
+the 50% target ($113 less ~$5 fees = ~$108) and a loss is the 2x-credit stop ($454 plus
+fees = ~$459), about 4.2:1. That needs a win rate above about 81% if every trade were
+a full win or a full stop; 21-DTE exits for small gains or losses lower that bar a
+little. Published studies of similar mechanically managed ~16-delta condors (50%
+target, 21-DTE exit) report roughly 75-85% winners: about 65-75% reach the target,
+10-20% close at 21 DTE mostly for small gains, and 10-15% stop out. Expectancy is
+therefore thin, roughly +$5 to +$25 per contract per layer before slippage, and it
+depends on taking every stop at 2x: one stop held to max loss ($773) erases about
+seven winners. These are estimates from research on similar setups, not a backtest of
+these exact rules. On the trend side's $20 wing the entry ratio is worse (around 7:1)
+but the managed ratio is the same, because the stop is set from the credit.
+When asked about edge or win rate, quote these figures and say they are estimates.
 
 **A normal year.** Most layers close at 50% within one to two weeks, some at 21 DTE for
 a small gain or loss, and a few stop out. One stop costs about what two to four winners
